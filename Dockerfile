@@ -1,19 +1,24 @@
 FROM l3iggs/lamp-aur
 MAINTAINER l3iggs <l3iggs@live.com>
 
+# remove info.php
+RUN sudo rm /srv/http/info.php
+
 # install gitlab
 RUN yaourt -S --noconfirm --needed gitlab
 
 # copy over apache configuration file(s)
 RUN sudo cp /etc/webapps/gitlab/apache.conf.example /etc/httpd/conf/extra/gitlab.conf
 
-# remove info.php
-RUN sudo rm /srv/http/info.php
+# enable gitlab config file in apache config
+RUN sed -i '$a Include conf/extra/gitlab.conf' /etc/httpd/conf/httpd.conf
 
 # expose the relevant ports
 EXPOSE 80
 EXPOSE 443
 EXPOSE 22
 
-# start apache web server and mariadb database server
-CMD ["cd '/usr'; sudo /usr/bin/mysqld_safe --datadir='/var/lib/mysql'& sudo apachectl -DFOREGROUND"]
+# start servers
+ENV START_APACHE true
+ENV START_MYSQL true
+CMD ["/root/startServers.sh"]
