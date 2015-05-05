@@ -11,7 +11,7 @@ RUN yaourt -S --noconfirm --needed gitlab
 RUN sudo cp /etc/webapps/gitlab/apache.conf.example /etc/httpd/conf/extra/gitlab.conf
 
 # enable gitlab config file in apache config
-RUN sed -i '$a Include conf/extra/gitlab.conf' /etc/httpd/conf/httpd.conf
+RUN sudo sed -i '$a Include conf/extra/gitlab.conf' /etc/httpd/conf/httpd.conf
 
 # expose the relevant ports
 EXPOSE 80
