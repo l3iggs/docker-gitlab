@@ -18,7 +18,11 @@ EXPOSE 80
 EXPOSE 443
 EXPOSE 22
 
-# start servers
+# set some default variables for the startup script
+ENV REGENERATE_SSL_CERT false
 ENV START_APACHE true
-ENV START_MYSQL true
-CMD ["/root/startServers.sh"]
+ENV START_MYSQL false
+
+# start servers
+ADD startServers.sh /root/startServers.sh
+CMD ["sudo","-E","/root/startServers.sh"]
