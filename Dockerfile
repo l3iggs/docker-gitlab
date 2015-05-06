@@ -24,5 +24,4 @@ ENV START_APACHE true
 ENV START_MYSQL false
 
 # start servers
-ADD startServers.sh /root/startServers.sh
 CMD ["sudo","-E","/root/startServers.sh"]
