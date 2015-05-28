@@ -1,6 +1,9 @@
 FROM l3iggs/lamp-aur
 MAINTAINER l3iggs <l3iggs@live.com>
 
+# upldate master package list
+RUN sudo pacman -Sy
+
 # remove info.php
 RUN sudo rm /srv/http/info.php
 
